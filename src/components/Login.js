@@ -29,9 +29,6 @@ function Login({ setUser }) {
     const userRole = decodedToken.role;
 
 
-      // Set user in state
-      setUser({ role: userRole });
-
      // Navigate based on role
       if (userRole === "admin") {
         navigate("/admin");
