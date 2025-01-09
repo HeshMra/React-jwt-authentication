@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode"; // Import jwt-decode
+import styles from "../CSS/Login.module.css";
 
 
 function Login({ setUser }) {
@@ -45,22 +46,27 @@ function Login({ setUser }) {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
-    </div>
+    <div className={styles.mainContainer}>
+      <div className={styles.loginContainer}>
+        <h1 className={styles.loginHeading}>Login</h1>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className={styles.loginInput}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className={styles.loginInput}
+        />
+        <button onClick={handleLogin} className={styles.loginButton}>Login</button>
+      </div>
+     </div>
+
   );
 }
 
