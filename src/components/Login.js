@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode"; // Import jwt-decode
+import { jwtDecode } from "jwt-decode"; // Import jwt-decode
 
 
 function Login({ setUser }) {
@@ -21,15 +21,17 @@ function Login({ setUser }) {
     const data = await response.json();
 
     if (response.ok) {
-        // Save JWT token in LocalStorage
-    localStorage.setItem("token", data.token);
+      // Save JWT token in LocalStorage
+      localStorage.setItem("token", data.token);
 
-    // Decode the JWT token to get the user role
-    const decodedToken = jwtDecode(data.token);
-    const userRole = decodedToken.role;
+      // Decode the JWT token to get the user role
+      const decodedToken = jwtDecode(data.token);
+      const userRole = decodedToken.role;
 
+      // Update the user state in the parent component (App.js)
+      setUser({ role: userRole });
 
-     // Navigate based on role
+      // Navigate based on role
       if (userRole === "admin") {
         navigate("/admin");
       } else if (userRole === "user") {

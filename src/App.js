@@ -7,6 +7,8 @@ import Register from "./components/Register";
 import AdminDashboard from "./components/AdminDashboard";
 import UserDashboard from "./components/UserDashboard";
 import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
+import AddProduct from "./components/AddProduct ";
+
 
 function App() {
   const [user, setUser] = React.useState(null); // Store the user object after login
@@ -17,6 +19,7 @@ function App() {
     if (token) {
       try {
         const decoded = jwtDecode(token);
+        // console.log("Fetched Role:", decoded.role); // Print the role
         setUser({ role: decoded.role });
       } catch (error) {
         console.error("Invalid token");
@@ -30,7 +33,6 @@ function App() {
     localStorage.removeItem("token"); // Remove token from storage
   };
 
-
   return (
     <Router>
       <div>
@@ -39,6 +41,7 @@ function App() {
           <a href="/">Home</a>
           {!user && <a href="/login">Login</a>}
           {!user && <a href="/register">Register</a>}
+          {user && user.role ==='admin' && <a href="/addProduct">Add Product</a>}
           {user && <button onClick={handleLogout}>Logout</button>}
         </nav>
 
@@ -47,6 +50,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register />} />
+
 
           {/* Protected Routes */}
           <Route
@@ -62,6 +66,14 @@ function App() {
             element={
               <PrivateRoute role="user">
                 <UserDashboard />
+              </PrivateRoute>
+            }
+          />
+             <Route
+            path="/addProduct"
+            element={
+              <PrivateRoute role="admin">
+                <AddProduct />
               </PrivateRoute>
             }
           />
