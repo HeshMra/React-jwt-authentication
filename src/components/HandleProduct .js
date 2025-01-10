@@ -3,7 +3,7 @@ import axios from "axios";
 import styles from "../CSS/AddProduct.module.css";
 
 
-const AddProduct = () => {
+const HandleProduct = () => {
   const [productData, setProductData] = useState({
     name: "",
     quantity: 0,
@@ -63,6 +63,24 @@ const AddProduct = () => {
       console.log(response.data);
     } catch (error) {
       setMessage(error.response?.data?.message || "Error adding product.");
+      console.error(error);
+    }
+  };
+
+  // ------------------------Delete Product--------------------------
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/products/delete_product/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // setMessage("Product deleted successfully!");
+      alert("Product deleted successfully!");
+      fetchProducts(); // Refresh product list after deletion
+    } catch (error) {
+      // setMessage(error.response?.data?.message || "Error deleting product.");
+      alert("Error deleting product.");
       console.error(error);
     }
   };
@@ -130,6 +148,7 @@ const AddProduct = () => {
                 <td>{product.name}</td>
                 <td>{product.quantity}</td>
                 <td>${product.price}</td>
+                <td><button onClick={() => handleDelete(product._id)} className={styles.deleteButton}>Delete</button></td>
               </tr>
             ))}
           </tbody>
@@ -140,4 +159,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default HandleProduct;

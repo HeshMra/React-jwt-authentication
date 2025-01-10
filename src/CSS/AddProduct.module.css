@@ -108,3 +108,17 @@
 .productTable tr:hover {
     background-color: #f1f1f1;
 }
+
+.deleteButton {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .deleteButton:hover {
+    background-color: darkred;
+  }
+  

@@ -7,7 +7,7 @@ import Register from "./components/Register";
 import AdminDashboard from "./components/AdminDashboard";
 import UserDashboard from "./components/UserDashboard";
 import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
-import AddProduct from "./components/AddProduct ";
+import HandleProduct from "./components/HandleProduct ";
 
 
 function App() {
@@ -37,11 +37,11 @@ function App() {
     <Router>
       <div>
         {/* Navigation Bar */}
-        <nav>
+        <nav style={{ display: "flex", gap: "20px", background:" #d7f0e2 " , height:"50px" , alignItems:"center" }}>
           <a href="/">Home</a>
           {!user && <a href="/login">Login</a>}
           {!user && <a href="/register">Register</a>}
-          {user && user.role ==='admin' && <a href="/addProduct">Add Product</a>}
+          {user && user.role ==='admin' && <a href="/handleProduct">Products handling page</a>}
           {user && <button onClick={handleLogout}>Logout</button>}
         </nav>
 
@@ -70,10 +70,10 @@ function App() {
             }
           />
              <Route
-            path="/addProduct"
+            path="/handleProduct"
             element={
               <PrivateRoute role="admin">
-                <AddProduct />
+                <HandleProduct />
               </PrivateRoute>
             }
           />
