@@ -7,10 +7,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100vh; /* Full height of the viewport */
-  }
-  
-  .productContainer {
+    height: 100vh;
+    /* Full height of the viewport */
+}
+
+.productContainer {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 10px;
@@ -19,15 +20,15 @@
     max-width: 400px;
     text-align: center;
     justify-content: center;
-  }
-  
-  .productHeading {
+}
+
+.productHeading {
     font-size: 2rem;
     color: #333333;
     margin-bottom: 20px;
-  }
-  
-  .productInput {
+}
+
+.productInput {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -35,15 +36,15 @@
     border-radius: 5px;
     font-size: 1rem;
     color: #333333;
-  }
-  
-  .productInput:focus {
+}
+
+.productInput:focus {
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-  
-  .addButton {
+}
+
+.addButton {
     width: 100%;
     padding: 10px;
     background-color: #007bff;
@@ -53,24 +54,24 @@
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-  }
-  
-  .addButton:hover {
-    background-color: #0056b3;
-  }
+}
 
-  .inputField{
+.addButton:hover {
+    background-color: #0056b3;
+}
+
+.inputField {
     display: flex;
-  }
-  
-  .inputlabel{
+}
+
+.inputlabel {
     width: 200px;
     text-align: left;
-  }
+}
 
 
-  /* -----------------product table CSS--------------------- */
-  .tableContainer {
+/* -----------------product table CSS--------------------- */
+.tableContainer {
     margin-top: 30px;
     background-color: #ffffff;
     padding: 30px;
@@ -80,30 +81,30 @@
     max-width: 400px;
     text-align: center;
     justify-content: center;
-  }
-  
-  .productTable {
+}
+
+.productTable {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-  }
-  
-  .productTable th, .productTable td {
+}
+
+.productTable th,
+.productTable td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
-  }
-  
-  .productTable th {
+}
+
+.productTable th {
     background-color: #f4f4f9;
     color: #333;
-  }
-  
-  .productTable tr:nth-child(even) {
+}
+
+.productTable tr:nth-child(even) {
     background-color: #f9f9f9;
-  }
-  
-  .productTable tr:hover {
+}
+
+.productTable tr:hover {
     background-color: #f1f1f1;
-  }
-  
+}
