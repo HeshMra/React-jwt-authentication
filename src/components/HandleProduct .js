@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styles from "../CSS/AddProduct.module.css";
+import styles from "../CSS/AllProducts.module.css";
 
 
 const HandleProduct = () => {
@@ -35,6 +35,27 @@ const HandleProduct = () => {
     fetchProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+
+  useEffect(() => {
+    fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
+
+
+  //-------------------fetching single product----------------------
+  const fetchSingleProduct = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/products/single_product/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setProductData(response.data);
+    } catch (error) {
+      console.error("Error fetch product:", error);
+    }
+  };
 
 
 
@@ -85,6 +106,28 @@ const HandleProduct = () => {
     }
   };
 
+  // ------------------------update Product----------------------------
+  const handleUpdate = async (id) => {
+    try {
+    // Exclude _id from productData
+    const { _id, ...updateData } = productData;
+      await axios.put(`http://localhost:5000/products/update_product/${id}`, updateData, { // Send only the updated fields
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // setMessage("Product updated successfully!");
+      alert("Product updated successfully!");
+      fetchProducts(); // Refresh product list after deletion
+      setProductData({ name: "", quantity: 0, price: 0 }); // Reset form
+    } catch (error) {
+      // setMessage(error.response?.data?.message || "Error deleting product.");
+      alert("Error updating product.");
+      console.error(error);
+    }
+  };
+
+
 
   return (
     <div className={styles.mainContainer}>
@@ -127,6 +170,7 @@ const HandleProduct = () => {
             />
           </div>
           <button type="submit" className={styles.addButton}>Add Product</button>
+          <button type="button" onClick={() => handleUpdate(productData._id)} className={styles.addButton}>update Product</button>
         </form>
         {message && <p>{message}</p>}
       </div>
@@ -147,8 +191,9 @@ const HandleProduct = () => {
               <tr key={product._id}>
                 <td>{product.name}</td>
                 <td>{product.quantity}</td>
-                <td>${product.price}</td>
+                <td>Rs.{product.price}</td>
                 <td><button onClick={() => handleDelete(product._id)} className={styles.deleteButton}>Delete</button></td>
+                <td><button onClick={() => fetchSingleProduct(product._id)} className={styles.updateButton}>edit</button></td>
               </tr>
             ))}
           </tbody>
