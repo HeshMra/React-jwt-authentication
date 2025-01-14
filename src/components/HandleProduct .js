@@ -12,10 +12,13 @@ const HandleProduct = () => {
 
   const [products, setProducts] = useState([]); // For storing all products
   const [message, setMessage] = useState("");
+  const [isEdit, setisEdit] = useState(false); // For storing editing status
+
   const token = localStorage.getItem("token");
 
+  console.log("Initial isEdit value:", isEdit);
 
-
+ 
   // ---------------fetching all the products--------------------
 
   const fetchProducts = async () => {
@@ -37,11 +40,6 @@ const HandleProduct = () => {
   }, [token]);
 
 
-  useEffect(() => {
-    fetchProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
-
 
   //-------------------fetching single product----------------------
   const fetchSingleProduct = async (id) => {
@@ -52,6 +50,8 @@ const HandleProduct = () => {
         },
       });
       setProductData(response.data);
+      setisEdit(true); // Set edit mode to true, enabling the "Update Product" button
+      console.log("status will be updated to true"); // Descriptive logging
     } catch (error) {
       console.error("Error fetch product:", error);
     }
@@ -118,6 +118,7 @@ const HandleProduct = () => {
       });
       // setMessage("Product updated successfully!");
       alert("Product updated successfully!");
+      setisEdit(false); // Optionally set isEdit to false after update
       fetchProducts(); // Refresh product list after deletion
       setProductData({ name: "", quantity: 0, price: 0 }); // Reset form
     } catch (error) {
@@ -170,7 +171,8 @@ const HandleProduct = () => {
             />
           </div>
           <button type="submit" className={styles.addButton}>Add Product</button>
-          <button type="button" onClick={() => handleUpdate(productData._id)} className={styles.addButton}>update Product</button>
+          <button type="button" onClick={() => handleUpdate(productData._id)} className={styles.updateButton}
+          disabled={!isEdit} >update Product</button>
         </form>
         {message && <p>{message}</p>}
       </div>
@@ -193,7 +195,7 @@ const HandleProduct = () => {
                 <td>{product.quantity}</td>
                 <td>Rs.{product.price}</td>
                 <td><button onClick={() => handleDelete(product._id)} className={styles.deleteButton}>Delete</button></td>
-                <td><button onClick={() => fetchSingleProduct(product._id)} className={styles.updateButton}>edit</button></td>
+                <td><button onClick={() => fetchSingleProduct(product._id)} className={styles.editButton}>edit</button></td>
               </tr>
             ))}
           </tbody>
